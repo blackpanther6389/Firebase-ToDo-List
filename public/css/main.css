@@ -1,0 +1,37 @@
+.portal
+{
+	display: block;
+	margin: 0 auto;
+	text-align: center;
+}
+
+.dashboard
+{
+	display: block;
+	margin: 0 auto;
+	text-align: center;
+}
+
+.hidden
+{
+		display: none;
+}
+
+h1
+{
+	color: blue;
+	margin: auto;
+	width: 80%;
+}
+
+p
+{
+	margin: auto;
+	width: 80%;
+}
+
+button
+{
+	display: block;
+	margin: auto;
+}

@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Firebase Web Quickstart</title>
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,500">
+		<link rel="stylesheet" href="css/main.css" />
+	</head>
+	<body>
+		<pre id="object">
+
+		</pre>
+		<div id="portal" class="portal hidden">
+			<h1 id="loginTitle">ToDo List</h1>
+			<input id="userName" type="text" placeholder="Enter username"/><br>
+			<input id="password" type="password" placeholder="Enter password" /><br>
+			<button id="loginButton" type="button">Login</button>
+			<button id="signupButton" type="button">Sign up</button>
+		</div>
+		<div id="dashboard" class="dashboard hidden">
+			<h1 id="dashboardTitle">User Dashboard</h1>
+			<h2 id="displayName"></h2>
+			<button id="logoutButton" type="button">Logout</button><br>
+			<input id="taskField" type="text" placeholder="Enter a task" />
+			<button id="submitTask" type="submit">Add task</button><br />
+			<div id="taskContainer">
+
+			</div>
+		</div>
+		<script src="https://www.gstatic.com/firebasejs/4.8.0/firebase.js"></script>
+		<script>
+	  		// Initialize Firebase
+		  	var config = {
+			    apiKey: "AIzaSyBQHhbI7lHCkYvl0kRu1ccVhXASnMwnKg0",
+			    authDomain: "fir-todo-list-252f7.firebaseapp.com",
+			    databaseURL: "https://fir-todo-list-252f7.firebaseio.com",
+			    projectId: "fir-todo-list-252f7",
+			    storageBucket: "fir-todo-list-252f7.appspot.com",
+			    messagingSenderId: "78218983632"
+		  	};
+		  	firebase.initializeApp(config);
+		</script>
+		<script type="text/javascript" src="js/main.js"></script>
+	</body>
+</html>
