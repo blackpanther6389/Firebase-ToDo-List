@@ -1,10 +1,6 @@
 // Firebase namespaces
 let auth = firebase.auth();
 
-
-
-auth.signOut();
-
 // Main containers
 let portal = document.getElementById('portal');
 let dashboard = document.getElementById('dashboard');
@@ -20,17 +16,27 @@ let taskField = document.getElementById('taskField');
 let submitTask = document.getElementById('submitTask');
 let taskContainer = document.getElementById('taskContainer');
 
+userName.addEventListener('keydown', e => {
+	if (e.key =='Enter')
+	{
+		// Set Persistence of state for keeping users logged in
+		const promise = auth.signInWithEmailAndPassword(userName.value, password.value);
+		promise.catch(e => alert('Login failed!'));
+	}
+});
+
+password.addEventListener('keydown', e => {
+	if (e.key =='Enter')
+	{
+		// Set Persistence of state for keeping users logged in
+		const promise = auth.signInWithEmailAndPassword(userName.value, password.value);
+		promise.catch(e => alert('Login failed!'));
+	}
+});
 loginButton.addEventListener('click', e => {
 	// Set Persistence of state for keeping users logged in
-	auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL).then(function() {
-		console.log('Inside setPersistence function');
-		const promise = auth.signInWithEmailAndPassword(userName.value, password.value);
-		promise.then(e => {
-			localStorage.setItem('userName', userName.value);
-			localStorage.setItem('password', password.value);
-		});
-		promise.catch(e => alert('Login failed!'));
-	});
+	const promise = auth.signInWithEmailAndPassword(userName.value, password.value);
+	promise.catch(e => alert('Login failed!'));
 });
 
 signupButton.addEventListener('click', e => {
@@ -46,6 +52,31 @@ logoutButton.addEventListener('click', e => {
 	auth.signOut();
 });
 
+taskField.addEventListener('keydown', e => {
+	if (e.key == 'Enter')
+	{
+		if (taskField.value == '')
+		{
+			alert('Enter a task!');
+		}
+		else
+		{
+			database = firebase.database();
+
+			taskRef = database.ref('Users/' + auth.currentUser.uid + '/tasks');
+
+			let dataObject = {
+				date: (new Date()).toJSON(),
+				taskDesc: taskField.value
+			};
+
+			taskRef.push(dataObject).then(function() {
+				console.log('Task added successfully!');
+				taskField.value = '';
+			});
+		}
+	}
+});
 submitTask.addEventListener('click', e => {
 	if (taskField.value == '')
 	{
@@ -68,10 +99,6 @@ submitTask.addEventListener('click', e => {
 		});
 	}
 });
-
-window.onload = function() {
-	auth.currentUser.reload();
-}
 
 auth.onAuthStateChanged(user => {
 	if(user)
@@ -161,6 +188,11 @@ function createTaskElement(taskKey, desc)
 	taskContainer.appendChild(task);
 }
 
+/************************************************************************************
+*
+*
+*
+************************************************************************************/
 /************************************************************************************
 *
 *
